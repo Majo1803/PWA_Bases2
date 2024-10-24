@@ -1,8 +1,7 @@
-# src/app.py
-
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from register import register_client  # Import the register function
+from login import login_user  # Import the login function
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), '../templates'))
 
@@ -14,14 +13,20 @@ def home():
     message = request.args.get('message')  # Get message from URL parameters
     return render_template('index.html', message=message)
 
-@app.route('/register', methods=['GET', 'POST'])  # Allow both GET and POST
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        result = register_client(request.form)  # Call the register function
-        if "successfully" in result:  # Check if the result is a success message
-            return redirect(url_for('home', message=result))  # Redirect to home with success message
-        return render_template('register.html', message=result)  # Render the registration page with error message
-    return render_template('register.html')  # Serve the registration form for GET requests
+        result = register_client(request.form)
+        if "successfully" in result:
+            return redirect(url_for('home', message=result))
+        return render_template('register.html', message=result)
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return login_user(request.form)  # Call the login function from login.py
+    return render_template('login.html')
 
 @app.route('/offline')
 def offline():
