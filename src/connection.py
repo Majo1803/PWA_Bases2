@@ -1,3 +1,5 @@
+# connection.py
+
 import psycopg2
 
 # Connection to PostgreSQL

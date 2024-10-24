@@ -1,0 +1,39 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Client</title>
+    <script>
+        function showAlert(message) {
+            if (message) {
+                alert(message);  // Show an alert with the message
+            }
+        }
+    </script>
+</head>
+<body onload="showAlert('{{ message|e }}')"> <!-- Call showAlert on page load -->
+    <h1>Register Client</h1>
+    <form action="/register" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required>
+        
+        <label for="cedula">Cédula:</label>
+        <input type="text" name="cedula" required>
+        
+        <label for="correo">Correo:</label>
+        <input type="email" name="correo" required>
+        
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono">
+        
+        <button type="submit">Register</button>
+    </form>
+
+    <!-- If you want to display the message directly on the page as well -->
+    {% if message %}
+        <p>{{ message }}</p> <!-- Optional: display message on the page -->
+    {% endif %}
+</body>
+</html>

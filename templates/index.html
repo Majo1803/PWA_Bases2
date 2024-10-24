@@ -1,36 +1,30 @@
 <!-- templates/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#317EFB"/>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <title>Simple PWA</title>
+    <title>Home</title>
+    <script>
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
 </head>
-
 <body>
-    <h1>Welcome to the PWA!</h1>
-    <p>This is a simple Progressive Web App using Flask as the backend.</p>
-    <script src="/static/js/app.js"></script>
-    <!-- Add this inside the body of templates/index.html -->
-    <h2>Register Client</h2>
-    <form action="/register" method="POST">
-        <label for="nombre">Name:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+    <h1>Welcome to the Application</h1>
+
+    {% if message %}
+        <script>
+            window.onload = function() {
+                showAlert("{{ message|e }}");  // Show the alert when the page loads
+            };
+        </script>
+    {% endif %}
     
-        <label for="cedula">ID Number:</label>
-        <input type="text" id="cedula" name="cedula" required><br><br>
-    
-        <label for="correo">Email:</label>
-        <input type="email" id="correo" name="correo" required><br><br>
-    
-        <label for="telefono">Phone:</label>
-        <input type="text" id="telefono" name="telefono"><br><br>
-    
-        <button type="submit">Register</button>
-    </form>
+    <!-- Navigation and other content -->
+    <a href="/register" style="position: absolute; top: 20px; right: 20px; padding: 10px; background-color: #317EFB; color: white; text-decoration: none; border-radius: 5px;">Register</a>
 
 </body>
 </html>
