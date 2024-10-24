@@ -10,17 +10,26 @@ app.secret_key = 'your_unique_secret_key_here'
 
 @app.route('/')
 def home():
-    message = request.args.get('message')  # Get message from URL parameters
-    return render_template('index.html', message=message)
+    return render_template('index.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        result = register_client(request.form)
-        if "successfully" in result:
-            return redirect(url_for('home', message=result))
-        return render_template('register.html', message=result)
-    return render_template('register.html')
+@app.route('/registrar_usuario', methods=['POST'])
+def registrar_usuario():
+    nombre = request.form.get('nombre')
+    cedula = request.form.get('cedula')
+    correo = request.form.get('correo')
+    telefono = request.form.get('telefono')
+
+    # Verificación de campos
+    if not nombre or not cedula or not correo:
+        message = "Por favor, complete todos los campos obligatorios."
+        return render_template('index.html', message=message)
+    
+    #enviar los datos a la base de datos
+    result = register_client(nombre, cedula, correo, telefono)
+    
+
+    # Si todo está bien, podrías redirigir al usuario a otra página o mostrar un mensaje de éxito
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

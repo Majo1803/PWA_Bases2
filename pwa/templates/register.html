@@ -30,10 +30,6 @@
         
         <button type="submit">Register</button>
     </form>
-
-    <!-- If you want to display the message directly on the page as well -->
-    {% if message %}
-        <p>{{ message }}</p> <!-- Optional: display message on the page -->
-    {% endif %}
+    <img src="/static/qr_codes/{{ cliente.qr_code }}" alt="Código QR del cliente">
 </body>
 </html>

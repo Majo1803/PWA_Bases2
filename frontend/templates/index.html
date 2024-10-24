@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monedero Electronico</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Monedero Electronico</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="{{ url_for('registrar_usuario') }}" class="btn btn-primary">Registrarse</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url_for('recarga') }}" class="nav-link" href="#">Recargas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('descarga') }}">Descargas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('promocion') }}">Promociones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('compras') }}">Compras</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Bienvenido al Monedero Electronico</h1>
+        <p>Registra tu cuenta para empezar a disfrutar de los beneficios</p>
+
+        <!-- Contenedor flexbox para alinear las cartas -->
+        <div class="d-flex justify-content-around flex-wrap">
+            <!-- Primera carta -->
+            <div class="card" style="width: 18rem;">
+                <img src="statics/img/Registro.jpeg" class="card-img-top" alt="Registro">
+                <div class="card-body">
+                    <h5 class="card-title">Registro</h5>
+                    <p class="card-text">Regístrate ya</p>
+                    <!-- Enlazar a la página de registro -->
+                    <a href="{{ url_for('registrar_usuario') }}" class="btn btn-primary">Registrarse</a> 
+                </div>
+            </div>
+
+            <!-- Segunda carta -->
+            <div class="card" style="width: 18rem;">
+                <img src="statics/img/Recarga.jpeg" class="card-img-top" alt="Ventas">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Recargas</h5>
+                    <p class="card-text">Recarga tu monedero</p>
+                    <!-- Enlazar a la página de recargas -->
+                    <a href="{{ url_for('recarga') }}" class="btn btn-primary">Recargar</a>
+
+                </div>
+            </div>
+
+            
+
+                      
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+    
+</body>
+
+</html>
