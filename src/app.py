@@ -3,8 +3,16 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from register import register_client
 from login import login_user
 from connection import connect_postgresql  # Import the connection function
+import base64
+
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), '../templates'))
+
+
+@app.template_filter('b64encode')
+def b64encode_filter(value):
+    """Encode bytes to base64."""
+    return base64.b64encode(value).decode('utf-8') if value else ''
 
 # Set the secret key for sessions
 app.secret_key = 'your_unique_secret_key_here'
@@ -32,7 +40,7 @@ def get_client_info(cliente_id):
     if connection:
         try:
             cursor = connection.cursor()
-            cursor.execute("SELECT nombre, cedula, correo, telefono FROM clientes WHERE id_cliente = %s;", (cliente_id,))
+            cursor.execute("SELECT nombre, cedula, correo, telefono, qr_code FROM clientes WHERE id_cliente = %s;", (cliente_id,))
             client_info = cursor.fetchone()
             return client_info  # Return client info as a tuple
         except Exception as error:
@@ -48,12 +56,14 @@ def home():
     message = request.args.get('message')
     balance = None  # Initialize balance variable
     client_info = None  # Initialize client_info variable
+    qr_code = None  # Initialize QR code variable
 
     if 'logged_in' in session:  # Check if the user is logged in
         balance = get_balance(session['id_cliente'])  # Get the balance for the logged-in user
         client_info = get_client_info(session['id_cliente'])  # Get the client info
+        qr_code = client_info[4] if client_info else None  # Assuming qr_code is the fifth element in the tuple
 
-    return render_template('index.html', message=message, balance=balance, client_info=client_info)
+    return render_template('index.html', message=message, balance=balance, client_info=client_info, qr_code=qr_code)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

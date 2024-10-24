@@ -87,6 +87,11 @@
         th {
             background-color: #f2f2f2;
         }
+        /* QR Code Styles */
+        .qr-code-container {
+            margin-top: 20px; /* Space above the QR code */
+            text-align: center; /* Center the QR code */
+        }
     </style>
 </head>
 <body>
@@ -127,6 +132,14 @@
     {% if balance is not none %}
         <div class="balance {{ 'high-balance' if balance > 10000 else 'low-balance' }}">
             Saldo: {{ balance }} Colones
+        </div>
+    {% endif %}
+
+    <!-- QR Code Display -->
+    {% if qr_code %}
+        <div class="qr-code-container">
+            <h2>Your QR Code:</h2>
+            <img src="data:image/png;base64,{{ qr_code|b64encode }}" alt="QR Code" />
         </div>
     {% endif %}
     
