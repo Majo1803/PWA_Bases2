@@ -1,5 +1,4 @@
 from connection import connect_postgresql  # Import the connection function
-import random
 import qrcode
 import io
 
@@ -52,7 +51,7 @@ def register_client(form_data):
             cursor.execute("""
                 INSERT INTO monedero (id_cliente, saldo)
                 VALUES (%s, %s);
-            """, (new_client_id, random.randint(20, 100000)))
+            """, (new_client_id, 0.0))
 
             # Commit the transaction
             connection.commit()

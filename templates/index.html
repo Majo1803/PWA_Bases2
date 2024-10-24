@@ -95,7 +95,7 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Application</h1>
+    <h1>Bienvenido al apartado de clientes del monedero</h1>
 
     {% if message %}
         <script>
@@ -107,7 +107,7 @@
     
     <!-- Main Information Header -->
     <div class="info-header">
-        Main Information
+        Su informacion
     </div>
 
     <!-- Client Information Table -->
@@ -138,14 +138,14 @@
     <!-- QR Code Display -->
     {% if qr_code %}
         <div class="qr-code-container">
-            <h2>Your QR Code:</h2>
+            <h2>Su codigo QR (Para compras):</h2>
             <img src="data:image/png;base64,{{ qr_code|b64encode }}" alt="QR Code" />
         </div>
     {% endif %}
     
     <!-- Navigation and other content -->
-    <a href="/register" class="register-button">Register</a>
-    <a href="/login" class="login-button">Login</a>
+    <a href="/register" class="register-button">Registro</a>
+    <a href="/login" class="login-button">Ingresar</a>
 
 </body>
 </html>

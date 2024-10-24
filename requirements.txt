@@ -1,0 +1,4 @@
+Flask==2.3.2
+qrcode==7.3
+pybase64==1.2.3
+psycopg2-binary==2.9.7
