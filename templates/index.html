@@ -9,6 +9,85 @@
             alert(message);
         }
     </script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+            height: 100vh; /* Ensure full height */
+        }
+        h1 {
+            margin-bottom: 20px; /* Add some spacing below the heading */
+        }
+        .info-header {
+            font-weight: bold;
+            font-size: 18px; /* Larger font for the main info */
+            margin-bottom: 10px; /* Space below the header */
+        }
+        .balance {
+            position: absolute;
+            left: 20px;
+            top: 120px; /* Adjusted to avoid overlap with the heading and info header */
+            padding: 20px; /* Increased padding for better visibility */
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000; /* Ensures it stays on top */
+            width: 40%; /* Covers approximately 40% of the screen width */
+        }
+        .high-balance {
+            background-color: #d4edda; /* Light green */
+            color: #155724; /* Dark green */
+        }
+        .low-balance {
+            background-color: #f8d7da; /* Light red */
+            color: #721c24; /* Dark red */
+        }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .balance {
+                left: 10px; /* Adjust for smaller screens */
+                top: 10px; /* Adjust position */
+                font-size: 16px; /* Reduce font size on smaller screens */
+            }
+            a {
+                padding: 8px; /* Adjust button padding */
+            }
+        }
+        /* Navigation Button Styles */
+        a {
+            position: absolute;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+        }
+        .register-button {
+            background-color: #317EFB; /* Blue color */
+            right: 120px; /* Positioning */
+            top: 20px; /* Positioning */
+        }
+        .login-button {
+            background-color: #28A745; /* Green color */
+            right: 20px; /* Positioning */
+            top: 20px; /* Positioning */
+        }
+        /* Table Styles */
+        table {
+            margin-top: 60px; /* Space below the balance display */
+            width: 40%; /* Set table width */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to the Application</h1>
@@ -21,9 +100,39 @@
         </script>
     {% endif %}
     
+    <!-- Main Information Header -->
+    <div class="info-header">
+        Main Information
+    </div>
+
+    <!-- Client Information Table -->
+    {% if client_info %}
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+            </tr>
+            <tr>
+                <td>{{ client_info[0] }}</td>
+                <td>{{ client_info[1] }}</td>
+                <td>{{ client_info[2] }}</td>
+                <td>{{ client_info[3] }}</td>
+            </tr>
+        </table>
+    {% endif %}
+    
+    <!-- Balance Display -->
+    {% if balance is not none %}
+        <div class="balance {{ 'high-balance' if balance > 10000 else 'low-balance' }}">
+            Saldo: {{ balance }} Colones
+        </div>
+    {% endif %}
+    
     <!-- Navigation and other content -->
-    <a href="/register" style="position: absolute; top: 20px; right: 120px; padding: 10px; background-color: #317EFB; color: white; text-decoration: none; border-radius: 5px;">Register</a>
-    <a href="/login" style="position: absolute; top: 20px; right: 20px; padding: 10px; background-color: #28A745; color: white; text-decoration: none; border-radius: 5px;">Login</a>
+    <a href="/register" class="register-button">Register</a>
+    <a href="/login" class="login-button">Login</a>
 
 </body>
 </html>

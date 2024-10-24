@@ -11,13 +11,16 @@ def login_user(form_data):
         try:
             cursor = connection.cursor()
             cursor.execute("""
-                SELECT * FROM clientes WHERE cedula = %s AND correo = %s
+                SELECT c.id_cliente, m.saldo FROM clientes c
+                LEFT JOIN monedero m ON c.id_cliente = m.id_cliente
+                WHERE c.cedula = %s AND c.correo = %s
             """, (cedula, correo))
             client = cursor.fetchone()
             
             if client:  # If credentials match, set session
                 session['logged_in'] = True
-                session['cliente_id'] = client[0]  # Assuming the first column is id_cliente
+                session['id_cliente'] = client[0]  # Set the id_cliente in session
+                session['saldo'] = client[1]  # Assuming the second column is saldo
                 return redirect(url_for('home', message="Login successful!"))
             else:
                 flash("Invalid credentials. Please try again.")
